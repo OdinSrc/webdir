@@ -44,17 +44,12 @@ async fn all_route_handler(
     req: Request<Body>,
 ) -> impl IntoResponse {
     let url_path = req.uri().path().to_owned();
-
+    println!("{}", url_path);
     let mut local_path = PathBuf::new();
     local_path.push(&app_state.root_dir);
     local_path.push(url_path.trim_start_matches("/"));
 
-    let current_path_str: String = local_path
-        .to_str()
-        .unwrap()
-        .trim_start_matches(".")
-        .to_string();
-
+    let current_path_str: String = url_path;
     println!("{:?}", current_path_str);
 
     match local_path.is_dir() {
